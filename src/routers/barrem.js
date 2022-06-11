@@ -3,7 +3,7 @@ const router = express.Router()
 const Barrem = require("../models/barrem")
 
 //create
-router.post('/barrems', async (req, res) => {
+router.post('/barrems/add', async (req, res) => {
     const barrem = new Barrem({
         ...req.body
     })
@@ -17,7 +17,7 @@ router.post('/barrems', async (req, res) => {
     }
 })
 //get_all
-router.get('/barrems', async (req, res) => {
+router.get('/offers/barrems', async (req, res) => {
     try {
         const barrems = await Barrem.find({})
         if(!barrems) {
@@ -29,7 +29,7 @@ router.get('/barrems', async (req, res) => {
     }
 })
 //get_by_id
-router.get('/barrems/:id', async (req, res) => {
+router.get('/offers/barrems/:id', async (req, res) => {
     try {
         const barrem = await Barrem.findById(req.params.id)
         
@@ -43,7 +43,7 @@ router.get('/barrems/:id', async (req, res) => {
 })
 
 //get_id_offre
-router.get('/barrems/offre/:id', async (req, res) => {
+router.get('/offers/barrems/offre/:id', async (req, res) => {
     const offre = req.params.id
     try {
         const barrem = await Barrem.findOne({offre})
@@ -57,7 +57,7 @@ router.get('/barrems/offre/:id', async (req, res) => {
     }
 })
 //get_by_id_lot
-router.get('/barrems/lot/:id', async (req, res) => {
+router.get('/offers/barrems/lot/:id', async (req, res) => {
     const lot = req.params.id
     try {
         const barrem = await Barrem.findOne({lot})
@@ -73,7 +73,7 @@ router.get('/barrems/lot/:id', async (req, res) => {
     }
 })
 
-router.patch('/barrems/:id', async(req,res) =>{
+router.patch('/offers/barrems/edit/:id', async(req,res) =>{
     updates = Object.keys(req.body)
     allowedUpdates = ['classification', 'nb_materiel', 'nb_salaries', 'prix']
     isValidUpdate = updates.every((update) => allowedUpdates.includes(update))
@@ -98,7 +98,7 @@ router.patch('/barrems/:id', async(req,res) =>{
     }
 })
 
-router.delete('/barrems/:id', async(req,res) => {
+router.delete('/offers/barrems/delete/:id', async(req,res) => {
     try {
         const barrem = await Barrem.findOneAndDelete({ _id: req.params.id})
         if(!barrem) {

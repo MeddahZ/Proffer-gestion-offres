@@ -1,3 +1,4 @@
+const { Double } = require('mongodb')
 const mongoose = require('mongoose')
 const Lot = require('./lot')
 
@@ -5,6 +6,10 @@ const Lot = require('./lot')
 const offerSchema  = new mongoose.Schema({
     name: {
         type: String,
+        required: true
+    },
+    dDay: {
+        type: Date,
         required: true
     },
     owner: {

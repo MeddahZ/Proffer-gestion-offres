@@ -18,7 +18,7 @@ const upload = multer({
     }
 })
 
-router.post('/lots', auth, upload.single('cahierdescharges'), async (req,res) =>{
+router.post('/offers/lots/add', auth, upload.single('cahierdescharges'), async (req,res) =>{
     //const lot =  new Lot(req.body)
     const lot = new Lot({
         ...req.body,
@@ -37,7 +37,7 @@ router.post('/lots', auth, upload.single('cahierdescharges'), async (req,res) =>
 
 //GET /lots?limit=10&skip=20
 //GET /lots?sortBy=createdAt_asc
-router.get('/:id/lots', auth, async (req,res) => {
+router.get('/offers/:id/lots', auth, async (req,res) => {
     const sort = {}
 
     if(req.query.sortBy) {
@@ -64,7 +64,7 @@ router.get('/:id/lots', auth, async (req,res) => {
     }
 })
 
-router.get('/lots/:id', auth, async (req,res) =>{
+router.get('/offers/lots/:id', auth, async (req,res) =>{
     const _id = req.params.id
     try{
         // const lot = await Lot.findById(req.params.id)
@@ -85,7 +85,7 @@ router.get('/lots/:id', auth, async (req,res) =>{
     }
 })
 
-router.delete('lots/:id/cahierdescharges', auth, upload.single('cahierdescharges'), async (req,res) =>{
+router.delete('/offers/lots/delete/cahierdescharges/:id', auth, upload.single('cahierdescharges'), async (req,res) =>{
     try {
 
         // const offer = await Offer.findOne({_id : req.params.ido, owner: req.admin._id})
@@ -106,7 +106,7 @@ router.delete('lots/:id/cahierdescharges', auth, upload.single('cahierdescharges
     
 })
 
-router.get('/lots/:id/cahierdescharges', auth,  async (req,res) => {
+router.get('/offers/lots/cahierdescharges/:id', auth,  async (req,res) => {
     try {
         // const offer = await Offer.findOne({_id : req.params.ido, owner: req.admin._id})
         // if(!offer) {
@@ -127,7 +127,7 @@ router.get('/lots/:id/cahierdescharges', auth,  async (req,res) => {
 
 
 
-router.patch('/lots/:id', async(req,res) =>{
+router.patch('/offers/lots/edit/:id', async(req,res) =>{
     updates = Object.keys(req.body)
     allowedUpdates = ['classification', 'nbMateriels', 'nbSalariés', 'dernierDelai', 'type', 'prixMin', 'prixMax']
     isValidUpdate = updates.every((update) => allowedUpdates.includes(update))
@@ -157,7 +157,7 @@ router.patch('/lots/:id', async(req,res) =>{
     }
 })
 
-router.delete('/:ido/lots/:id', auth, async(req,res) => {
+router.delete('/offers/:ido/lots/delete/:id', auth, async(req,res) => {
     try {
         const offer = await Offer.findOne({_id : req.params.ido, owner: req.admin._id})
         if(!offer) {

@@ -6,7 +6,7 @@ const auth = require('../middleware/auth')
 // const Sharp = require('sharp')
 
 
-router.post('/offers', auth, async (req,res) => {
+router.post('/offers/add', auth, async (req,res) => {
     const offer = new Offer({
         ...req.body,
         owner: req.admin._id
@@ -64,9 +64,9 @@ router.get('/offers/:id', auth, async (req,res) =>{
     }
 })
 
-router.patch('/offers/:id', auth, async(req,res) =>{
+router.patch('/offers/edit/:id', auth, async(req,res) =>{
     updates = Object.keys(req.body)
-    allowedUpdates = ['name']
+    allowedUpdates = ['name','dDay']
     isValidUpdate = updates.every((update) => allowedUpdates.includes(update))
     if(!isValidUpdate) {
         res.status(400).send({error: 'unvalid update!'})
@@ -88,7 +88,7 @@ router.patch('/offers/:id', auth, async(req,res) =>{
     }
 })
 
-router.delete('/offers/:id', auth, async(req,res) => {
+router.delete('/offers/delete/:id', auth, async(req,res) => {
     try {
         //const offer = await Offer.findByIdAndDelete(req.params.id)
         const offer = await Offer.findOneAndDelete({ _id: req.params.id, owner: req.admin._id })
